@@ -143,7 +143,7 @@ END;
 --2. procedura ce are ca scop pe baza unui CNP ca input sa afiseze informatiile persoanei ce are acel CNP, altfel arunca o exceptie
 CREATE OR REPLACE PROCEDURE afiseazaPersoana(id INT)
 IS
-  p Persoana%ROWTYPE;
+  p Persoana%ROWTYPE; --ofera un tip de inregistrare care reprezinta un rand dintr-o tabela
 BEGIN
   -- obtinem persoana pe baza CNP-ului
   SELECT * INTO p FROM Persoana WHERE CNP = id;
