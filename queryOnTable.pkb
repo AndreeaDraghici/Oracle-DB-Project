@@ -163,3 +163,45 @@ END;
 /   
 
 
+--1. Trigger - acesta are ca scop sa afiseze diferenta dintr numarul de persoane ce se aflau la inceput in echipaj si numarul actual
+CREATE OR REPLACE TRIGGER afiseazaDiferentaPersoaneEchipaj 
+BEFORE DELETE OR INSERT OR UPDATE ON Echipaj 
+FOR EACH ROW 
+WHEN (NEW.ID_Echipaj > 0) 
+DECLARE 
+   diferanta INT; 
+BEGIN 
+   diferanta := :NEW.Persoane_Echipaj  - :OLD.Persoane_Echipaj; 
+   dbms_output.put_line('Nr persoane echipaj inainte de actualizare: ' || :OLD.Persoane_Echipaj); 
+   dbms_output.put_line('Nr persoane echipaj acum: ' || :NEW.Persoane_Echipaj); 
+   dbms_output.put_line('Diferenta nr persoane: ' || diferanta); 
+END; 
+/ 
+
+BEGIN
+   INSERT INTO Echipaj (ID_Echipaj,ID_Nava,Nume_Echipaj,Persoane_Echipaj) VALUES (133, 258, 'Test',1400); 
+
+   UPDATE Echipaj SET Persoane_Echipaj=400 WHERE ID_Echipaj = 133; 
+END;
+
+--2. Trigger - acesta are ca scop sa afiseze diferenta dintre pretul initial si cel actual al unei croaziere
+CREATE OR REPLACE TRIGGER afiseazaDiferentaPretCroaziere
+BEFORE DELETE OR INSERT OR UPDATE ON Croaziera 
+FOR EACH ROW 
+WHEN (NEW.ID_Croaziera > 0) 
+DECLARE 
+   diferanta varchar(255); 
+BEGIN 
+   diferanta := :NEW.Pret  - :OLD.Pret; 
+   dbms_output.put_line('Pret inainte de modificare: ' || :OLD.Pret); 
+   dbms_output.put_line('Pret dupa modificare: ' || :NEW.Pret); 
+   dbms_output.put_line('Diferenta: ' || diferanta); 
+END; 
+/ 
+
+BEGIN
+   INSERT INTO Croaziera (ID_Croaziera,Nume_Croaziera,Traseu,Durata,Pret) VALUES (1000, 'Test', 'Test','1400','200'); 
+
+   UPDATE Croaziera SET Pret=Pret*10 WHERE ID_Croaziera = 1000; 
+END;
+
