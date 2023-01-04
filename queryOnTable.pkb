@@ -3,7 +3,6 @@ CREATE Index index_nume ON Echipaj (Nume_Echipaj);
 
 --1.Se afiseaza numele navelor 
 SELECT Nume_Nava FROM Nava;
-
 --2.Se afiseaza alimentele cu categoria asociata acestora in functie de id
 SELECT * FROM Alimente INNER JOIN Categorie USING (ID_Categorie);
 
@@ -71,19 +70,23 @@ SELECT MIN(Durata_stationare), MAX(Durata_stationare) FROM Port;
 --22.Se afiseaza in ordine functia membrilor cu ID-ul cuprins intre 1320 si 1321	
 SELECT * FROM Membrii WHERE ID_Membru BETWEEN 1320 AND 1322 ORDER BY Functie;
 
+
+
+
 --1.functie ce are ca scop verificarea anului de constructie
-create or replace function An_Constructie (x in number) 
-return varchar
+CREATE OR replace FUNCTION AnConstructie (x in INT) 
+RETURN varchar
 IS 
-Begin 
- 
-    if x <= 1990 then  
-    Return 'Nava este scoasa din uz.';  
-    Else 
-    Return 'Nava este disponibila pentru croaziere.'; 
-    End if;
-End;    
+BEGIN 
+   
+    IF x <= 1990 THEN
+    RETURN 'Nava este scoasa din uz.';  
+    ELSE 
+    RETURN 'Nava este disponibila pentru croaziere.'; 
+    END IF;
+END;    
 / 
+
 
 --2. functie ce are ca scop calcularea numarului total de persoane
 CREATE OR REPLACE FUNCTION totalPersoane 
@@ -105,17 +108,42 @@ BEGIN
 END; 
 /
 
---1.procedura stocata ce care ca scop inserarea unei noi inregistrari in tabelul categorie.
-CREATE OR replace PROCEDURE InsereazaCategorieNoua   
-(ID_Categorie IN INT,    
-Tip_Categorie IN VARCHAR)    
-IS   
+
+
+--1.procedura ce care ca scop inserarea unei noi inregistrari in tabelul categorie.
+CREATE OR replace PROCEDURE InsereazaCategorieNoua(ID_Categorie IN INT,Tip_Categorie IN VARCHAR)    
+IS  
+
 BEGIN    
-INSERT INTO Categorie VALUES(ID_Categorie,Tip_Categorie);    
+   INSERT INTO Categorie VALUES(ID_Categorie,Tip_Categorie);    
 END;    
 /
 BEGIN    
    InsereazaCategorieNoua(666,'Test');  
    dbms_output.put_line('S-a inserat cu succes un nou tip categorie in tabel!');    
+END;    
+/   
+
+
+
+
+--2. procedura ce are ca scop pe baza unui CNP ca input sa afiseze informatiile persoanei ce are acel CNP, altfel arunca o exceptie
+CREATE OR REPLACE PROCEDURE afiseazaPersoana(id INT)
+IS
+  p Persoana%ROWTYPE;
+BEGIN
+  -- obtinem persoana pe baza CNP-ului
+  SELECT * INTO p FROM Persoana WHERE CNP = id;
+
+  -- afisam informatiile despre persoana a carui CNP a fost introdus
+  dbms_output.put_line(' NUME: ' || p.Nume || ' DATA NASTERE: < ' || p.Data_nastere ||' > ' );
+
+EXCEPTION
+   WHEN OTHERS THEN
+      dbms_output.put_line( SQLERRM );
+END;
+/
+BEGIN    
+   afiseazaPersoana(2870517101220);
 END;    
 /   
