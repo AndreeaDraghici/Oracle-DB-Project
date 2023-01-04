@@ -1555,3 +1555,133 @@ INSERT INTO Port VALUES (
 	'St.Petersburg',
 	'1 zi'
 );
+
+INSERT INTO Dispune VALUES (
+	610,
+	510
+);
+
+INSERT INTO Dispune VALUES (
+	611,
+	510
+);
+
+INSERT INTO Dispune VALUES (
+	612,
+	510
+);
+
+INSERT INTO Dispune VALUES (
+	614,
+	510
+);
+
+INSERT INTO Dispune VALUES (
+	615,
+	513
+);
+
+INSERT INTO Dispune VALUES (
+	616,
+	511
+);
+
+INSERT INTO Dispune VALUES (
+	617,
+	511
+);
+
+INSERT INTO Dispune VALUES (
+	618,
+	511
+);
+
+INSERT INTO Dispune VALUES (
+	619,
+	511
+);
+
+INSERT INTO Dispune VALUES (
+	620,
+	511
+);
+
+INSERT INTO Dispune VALUES (
+	621,
+	511
+);
+
+INSERT INTO Dispune VALUES (
+	621,
+	515
+);
+INSERT INTO Dispune VALUES (
+	621,
+	516
+);
+INSERT INTO Dispune VALUES (
+	621,
+	510
+);
+INSERT INTO Dispune VALUES (
+	621,
+	519
+);
+INSERT INTO Dispune VALUES (
+	621,
+	520
+);
+
+INSERT INTO Dispune VALUES (
+	621,
+	541
+);
+INSERT INTO Dispune VALUES (
+	621,
+	544
+);
+INSERT INTO Dispune VALUES (
+	621,
+	543
+);
+INSERT INTO Dispune VALUES (
+	621,
+	545
+);
+
+
+INSERT INTO Dispune VALUES (
+	621,
+	546
+);
+
+INSERT INTO Dispune VALUES (
+	621,
+	534
+);
+
+INSERT INTO Dispune VALUES (
+	621,
+	535
+);
+
+INSERT INTO Dispune VALUES (
+	621,
+	536
+);
+
+INSERT INTO Dispune VALUES (
+	621,
+	536
+);
+
+INSERT INTO Trece VALUES (
+	621,
+	420
+);
+
+INSERT INTO Trece VALUES (
+	621,
+	419
+	419
+);
