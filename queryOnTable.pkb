@@ -72,20 +72,31 @@ SELECT * FROM Membrii WHERE ID_Membru BETWEEN 1320 AND 1322 ORDER BY Functie;
 
 
 
-
 --1.functie ce are ca scop verificarea anului de constructie
-CREATE OR replace FUNCTION AnConstructie (x in INT) 
-RETURN varchar
-IS 
+CREATE OR REPLACE FUNCTION anConstructie 
+RETURN INT IS 
+   flag INT; 
+
 BEGIN 
-   
-    IF x <= 1990 THEN
-    RETURN 'Nava este scoasa din uz.';  
-    ELSE 
-    RETURN 'Nava este disponibila pentru croaziere.'; 
+   FOR an IN (SELECT An_Constructie INTO flag FROM Nava)
+   LOOP
+   flag := an.An_Constructie;
+     IF flag <= 1800 THEN  
+          dbms_output.put_line('Nava este scoasa din uz.' ); 
+        ELSE 
+          dbms_output.put_line('Nava este in uz. Anul de constructie al acesteia este: ' || flag); 
     END IF;
-END;    
+   END LOOP;
+   RETURN flag; 
+END; 
 / 
+
+DECLARE 
+   rezultat INT; 
+BEGIN 
+   rezultat := anConstructie(); --apelam functia
+END; 
+/
 
 
 --2. functie ce are ca scop calcularea numarului total de persoane
@@ -118,6 +129,8 @@ BEGIN
    INSERT INTO Categorie VALUES(ID_Categorie,Tip_Categorie);    
 END;    
 /
+
+--blocul in care se executa procedura
 BEGIN    
    InsereazaCategorieNoua(666,'Test');  
    dbms_output.put_line('S-a inserat cu succes un nou tip categorie in tabel!');    
@@ -143,7 +156,10 @@ EXCEPTION
       dbms_output.put_line( SQLERRM );
 END;
 /
+--blocul in care se executa procedura
 BEGIN    
    afiseazaPersoana(2870517101220);
 END;    
 /   
+
+
